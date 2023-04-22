@@ -56,6 +56,7 @@ def new_batch(coffee_name: str,
     db.session.commit()
 
 def get_batch_by_id(batch_id: int) -> None:
+    """ Prints out the batch information by its id or batch number."""
     batch = Batch.query.filter_by(id=batch_id).first()
     x.align ='r'
     x.field_names = ['id',
@@ -72,20 +73,58 @@ def get_batch_by_id(batch_id: int) -> None:
                      'batch_expiration_date',
                      'batch_ph'
                      ]
+   
     x.add_row(
         [batch.id,
-         batch.coffee_name,
-         batch.batch_type,
-         batch.batch_start_water_volume,
-         batch.batch_end_water_volume,
-         batch.batch_start_water_temperature,
-         batch.batch_end_water_temperature,
-         batch.batch_coffee_quantity,
-         batch.batch_start_date,
-         batch.batch_estimated_end_date,
-         batch.batch_actual_end_date,
-         batch.batch_expiration_date,
-         batch.batch_ph]
-         )
+        batch.coffee_name,
+        batch.batch_type,
+        batch.batch_start_water_volume,
+        batch.batch_end_water_volume,
+        batch.batch_start_water_temperature,
+        batch.batch_end_water_temperature,
+        batch.batch_coffee_quantity,
+        batch.batch_start_date,
+        batch.batch_estimated_end_date,
+        batch.batch_actual_end_date,
+        batch.batch_expiration_date,
+        batch.batch_ph]
+        )
     print(x)
-    
+    x.clear()
+
+def get_batch():
+    """Prints out the batch information of the entire database."""
+    batches = Batch.query.all()
+    x.field_names = ['id',
+                     'coffee_name',
+                     'batch_type',
+                     'batch_start_water_volume',
+                     'batch_end_water_volume',
+                     'batch_start_water_temperature',
+                     'batch_end_water_temperature',
+                     'batch_coffee_quantity',
+                     'batch_start_date',
+                     'batch_estimated_end_date',
+                     'batch_actual_end_date',
+                     'batch_expiration_date',
+                     'batch_ph'
+                     ]
+    for batch in batches:
+        x.add_row(
+            [batch.id,
+            batch.coffee_name,
+            batch.batch_type,
+            batch.batch_start_water_volume,
+            batch.batch_end_water_volume,
+            batch.batch_start_water_temperature,
+            batch.batch_end_water_temperature,
+            batch.batch_coffee_quantity,
+            batch.batch_start_date,
+            batch.batch_estimated_end_date,
+            batch.batch_actual_end_date,
+            batch.batch_expiration_date,
+            batch.batch_ph
+            ]
+            )
+    print(x)
+    x.clear()
